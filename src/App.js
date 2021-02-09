@@ -7,8 +7,7 @@ function App() {
   //load locationStorage
   useEffect(() => {
     const items = localStorage.getItem("items");
-    // ...
-  }, []);
+  }, [localStorage.getItem("List")]);
 
   return (
     <div className="card" style={{ width: 400 }}>
@@ -17,6 +16,7 @@ function App() {
         <div className="field">
           <label className="label">Name</label>
           <input
+            id="name"
             className="input"
             type="text"
             placeholder="e.q John Smith"
@@ -27,7 +27,7 @@ function App() {
         <div className="field">
           <label className="label">Gender</label>
           <select className="input" type="text" placeholder="Please select ..">
-            <option value="" disabled selected hidden>
+            <option id="gender" value="" disabled selected hidden>
               -- Select Gender --
             </option>
             <option>Male</option>
@@ -36,19 +36,40 @@ function App() {
         </div>
 
         <div className="field">
-          <label className="label">Age</label>
+          <label id="age" className="label">
+            Age
+          </label>
           <input className="input" type="number" placeholder="e.q 30"></input>
         </div>
 
-        <button className="button is-primary is-fullwidth">Submit</button>
+        <button
+          className="button is-primary is-fullwidth"
+          onClick={() => () => {
+            var getItem = [
+              {
+                localName: document.getElementById("name").value,
+                localGender: document.getElementById("gender").value,
+                localAge: document.getElementById("age").value
+              }
+            ];
+            localStorage.setItem("List", JSON.stringify(getItem));
+          }}
+        >
+          Submit
+        </button>
 
         <div className="mb-4"></div>
 
         {/* display tables for all persons */}
         <p className="is-4 title has-text-centered">Person List</p>
         {/* sample table */}
-        <ItemTable name={"Bob"} gender={"Male"} age={"50"} />
-        <p>Your name and code here</p>
+
+        {/* {items.map((item) => {
+          return (
+            <ItemTable name={item.name} gender={item.gender} age={item.age} />
+          );
+        })} */}
+        <p>วิศรุต ติ๊บบุ่ง 620610807</p>
       </div>
     </div>
   );
